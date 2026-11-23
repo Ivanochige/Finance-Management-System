@@ -11,7 +11,7 @@
   'use strict';
 
   var config = global.OCSON_CONFIG;
-  var PLACEHOLDER = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+  var PLACEHOLDER = 'https://script.google.com/macros/s/AKfycbwH_-th2ii9aAsIW5q9nfK2QF39FiPXnDBZbjGqdEkWokNHI-DfBcvqwB0v8ondI_a6/exec';
   var MESSAGE_SOURCE = 'ocson-app';
   var BRIDGE_SOURCE = 'ocson-bridge';
 
