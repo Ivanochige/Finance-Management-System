@@ -6,7 +6,7 @@
  * Replace bridgeUrl with the /exec URL from your Apps Script web app deployment.
  */
 window.OCSON_CONFIG = Object.freeze({
-  bridgeUrl: 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE',
+  bridgeUrl: 'https://script.google.com/macros/s/AKfycbwH_-th2ii9aAsIW5q9nfK2QF39FiPXnDBZbjGqdEkWokNHI-DfBcvqwB0v8ondI_a6/exec',
   brandName: 'OCSON',
   rpcTimeoutMs: 25000,
   connectTimeoutMs: 12000,
