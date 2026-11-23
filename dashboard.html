@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e7490" />
+  <meta name="description" content="Ocson Finance Management System dashboard." />
+  <title>Dashboard | Ocson Finance Management System</title>
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('ocson-theme');
+        if (theme === 'dark' || theme === 'light') document.documentElement.setAttribute('data-theme', theme);
+      } catch (error) { /* storage may be unavailable */ }
+    }());
+  </script>
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <script src="js/config.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body data-page="dashboard" data-protected="true">
+  <div class="app-shell">
+    <div class="drawer-overlay" data-drawer-overlay aria-hidden="true"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <div class="brand-mark" aria-hidden="true">OCSON</div>
+        <div class="brand-text"><strong>OCSON</strong><small>Finance Management</small></div>
+      </div>
+      <nav class="sidebar-nav">
+        <p class="nav-section-title">Overview</p>
+        <a class="nav-item" href="dashboard.html" data-nav="dashboard">
+          <span class="nav-icon" aria-hidden="true">&#9634;</span><span class="nav-label">Dashboard</span>
+        </a>
+
+        <p class="nav-section-title">Operations</p>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#128100;</span><span class="nav-label">Customers</span><span class="nav-soon">Phase 2</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#127952;</span><span class="nav-label">Savings</span><span class="nav-soon">Phase 3</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#128180;</span><span class="nav-label">Loans</span><span class="nav-soon">Phase 4</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#128101;</span><span class="nav-label">Group lending</span><span class="nav-soon">Phase 5</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#128179;</span><span class="nav-label">Repayments</span><span class="nav-soon">Phase 4</span></button>
+
+        <p class="nav-section-title">Finance</p>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#9783;</span><span class="nav-label">Accounting</span><span class="nav-soon">Phase 6</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#128203;</span><span class="nav-label">Expenses</span><span class="nav-soon">Phase 6</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#128202;</span><span class="nav-label">Reports</span><span class="nav-soon">Phase 7</span></button>
+
+        <p class="nav-section-title">Administration</p>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#9881;</span><span class="nav-label">Users &amp; roles</span><span class="nav-soon">Later</span></button>
+        <button class="nav-item" type="button" disabled><span class="nav-icon" aria-hidden="true">&#9878;</span><span class="nav-label">Settings</span><span class="nav-soon">Later</span></button>
+      </nav>
+      <div class="sidebar-footer text-small text-muted">Version 1.0 &middot; Phase 1 foundation</div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <button class="btn btn-icon btn-ghost menu-toggle" type="button" data-menu-toggle
+                aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">&#9776;</button>
+        <h2 class="topbar-title">Dashboard</h2>
+        <div class="topbar-actions">
+          <span class="status-label topbar-status">
+            <span class="status-dot" data-backend-dot aria-hidden="true"></span>
+            <span data-backend-label>Backend status unknown</span>
+          </span>
+          <button class="btn btn-icon btn-ghost" type="button" data-theme-toggle aria-label="Toggle light or dark theme">&#9788;</button>
+          <button class="btn btn-icon btn-ghost" type="button" data-notifications-toggle aria-label="Notifications">&#128276;</button>
+          <div class="menu">
+            <button class="btn btn-ghost" type="button" data-menu-trigger="#user-menu" aria-label="User menu">
+              <span class="avatar" data-user-avatar>?</span>
+            </button>
+            <div class="menu-panel" id="user-menu" hidden>
+              <div style="padding:9px 10px 7px">
+                <strong data-user-name>Not signed in</strong><br />
+                <span class="text-small text-muted" data-user-role></span>
+              </div>
+              <div class="menu-divider"></div>
+              <button type="button" data-change-password>Change password</button>
+              <button type="button" data-logout>Sign out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <div class="page-heading">
+          <div>
+            <h1>Financial overview</h1>
+            <p data-dashboard-greeting>Key figures and portfolio health at a glance.</p>
+          </div>
+          <div>
+            <button class="btn btn-sm" type="button" data-refresh-status>Check connection</button>
+            <button class="btn btn-sm btn-primary" type="button" disabled title="Available in Phase 2">Add customer</button>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>Phase 1 foundation.</strong> This layout is live, but figures are intentionally blank.
+          No sample or fabricated financial data is displayed. Values populate as modules are built and
+          connected to posted transactions.
+        </div>
+
+        <section class="kpi-grid" aria-label="Key performance indicators">
+          <article class="card kpi-card"><div class="kpi-label">Total registered customers</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">All time</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Active customers</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Currently active</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total savings balances</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Savings deposits today</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Savings withdrawals today</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total loans issued</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Disbursed to date</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Active loans</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Open accounts</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Outstanding loan portfolio</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total repayments received</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Loans in arrears</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Overdue accounts</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Portfolio at Risk (PAR)</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Policy methodology</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total cash available</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total bank balances</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">UGX</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total income</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Posted ledger</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Total expenses</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Posted ledger</div></article>
+          <article class="card kpi-card"><div class="kpi-label">Net profit / loss</div><div class="kpi-value">&mdash;</div><div class="kpi-caption">Posted ledger</div></article>
+        </section>
+
+        <section class="chart-grid" aria-label="Financial charts">
+          <article class="card"><div class="card-header"><h3>Savings deposits vs withdrawals</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Transactions will appear here after Phase 3.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Loan disbursements over time</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Disbursements will appear here after Phase 4.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Loan repayments over time</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Repayments will appear here after Phase 4.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Outstanding loan portfolio</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Portfolio trends will appear here after Phase 4.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Loan portfolio by product</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Product breakdown will appear here after Phase 4.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Customer growth</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Registrations will appear here after Phase 2.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Income vs expenses</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Posted ledger figures will appear here after Phase 6.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Arrears and portfolio quality</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong> Ageing analysis will appear here after Phase 4.</div></div></article>
+          <article class="card"><div class="card-header"><h3>Individual vs group loans</h3></div><div class="card-body chart-placeholder"><div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128200;</span><strong>No chart data yet</strong>Comparison will appear here after Phase 5.</div></div></article>
+        </section>
+
+        <section class="lower-grid">
+          <article class="card">
+            <div class="card-header"><h3>Recent activity</h3></div>
+            <div class="card-body">
+              <div class="empty-state"><span class="empty-icon" aria-hidden="true">&#128336;</span><strong>No activity recorded</strong>Posted transactions and audit events will be listed here.</div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-header"><h3>Setup status</h3></div>
+            <div class="card-body">
+              <table class="data-table">
+                <tbody>
+                  <tr><td>Frontend foundation</td><td><span class="badge badge-success">Complete</span></td></tr>
+                  <tr><td>Backend bridge</td><td><span class="badge badge-warning">Awaiting deployment</span></td></tr>
+                  <tr><td>Google Sheets database</td><td><span class="badge badge-warning">Awaiting initialisation</span></td></tr>
+                  <tr><td>Official OCSON logo</td><td><span class="badge">Awaiting upload</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div class="toast-stack" data-toast-stack aria-live="polite"></div>
+</body>
+</html>
