@@ -1,0 +1,31 @@
+/* Ocson Finance Management System - light/dark theme tokens */
+
+[data-theme="dark"] {
+  --brand: #22d3ee;
+  --brand-strong: #67e8f9;
+  --brand-soft: #164e63;
+  --accent: #4ade80;
+  --danger: #f87171;
+  --warning: #fbbf24;
+  --info: #93c5fd;
+  --bg: #0b1220;
+  --surface: #111827;
+  --surface-2: #172033;
+  --text: #e5edf8;
+  --text-muted: #94a3b8;
+  --border: #24324a;
+  --border-strong: #384a66;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .35);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, .5);
+}
+
+[data-theme="dark"] .brand-mark {
+  background: linear-gradient(135deg, #0e7490, #155e75);
+  color: #ecfeff;
+}
+
+[data-theme="dark"] .auth-visual {
+  background: radial-gradient(circle at 20% 15%, rgba(34, 211, 238, .14), transparent 45%),
+              linear-gradient(145deg, #0f2433, #0b1220);
+}
