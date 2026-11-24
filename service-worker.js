@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'ocson-static-v2';
+const CACHE_NAME = 'ocson-static-v3';
 const STATIC_ASSETS = [
   './',
   './index.html',
