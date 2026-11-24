@@ -73,5 +73,14 @@
           : status === 'error' ? 'Backend unavailable'
             : 'Connecting to secure backend...';
     });
+
+    // Start the handshake on page load. Without this, the label only reflects
+    // the initial "idle" state and never attempts a real connection until the
+    // user submits the form (auth.login -> api.call -> connect).
+    if (api.isConfigured()) {
+      api.connect().catch(function (error) {
+        console.warn('OCSON bridge connection failed', error);
+      });
+    }
   });
 }(window));
