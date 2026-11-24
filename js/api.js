@@ -11,7 +11,7 @@
   'use strict';
 
   var config = global.OCSON_CONFIG;
-  var PLACEHOLDER = 'https://script.google.com/macros/s/AKfycbwH_-th2ii9aAsIW5q9nfK2QF39FiPXnDBZbjGqdEkWokNHI-DfBcvqwB0v8ondI_a6/exec';
+  var PLACEHOLDER = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
   var MESSAGE_SOURCE = 'ocson-app';
   var BRIDGE_SOURCE = 'ocson-bridge';
 
@@ -71,7 +71,12 @@
     if (!isGoogleBridgeOrigin(event.origin)) return;
 
     if (data.type === 'READY') {
-      if (!data.nonce || data.nonce !== this.nonce) return;
+      // The bridge generates the nonce. Adopt it on first READY and require it
+      // on every later message. This avoids a handshake deadlock where both
+      // sides generated independent nonces and rejected each other.
+      if (!data.nonce) return;
+      if (this.nonce && data.nonce !== this.nonce) return;
+      this.nonce = data.nonce;
       // Google nests HtmlService content in its own iframe, so event.source is
       // the bridge window rather than iframe.contentWindow. Address that exact
       // window with the origin we just validated.
@@ -85,6 +90,7 @@
 
     if (!this.target || event.source !== this.target) return;
     if (data.type !== 'RESULT') return;
+    if (!data.nonce || data.nonce !== this.nonce) return;
     var entry = this.pending[data.id];
     if (!entry) return;
     delete this.pending[data.id];
@@ -137,8 +143,8 @@
 
       self.pending.__connect = { resolve: resolve, reject: reject, timer: timer };
 
-      self.nonce = String(Date.now()) + '-' + Math.random().toString(36).slice(2) + '-' +
-        Math.random().toString(36).slice(2);
+      // The nonce is adopted from the bridge's READY message (see onMessage).
+      self.nonce = null;
 
       var iframe = document.createElement('iframe');
       iframe.setAttribute('title', 'OCSON secure backend bridge');
